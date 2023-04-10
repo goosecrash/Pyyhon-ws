@@ -55,7 +55,7 @@ snail_rectangle = snail_surface.get_rect(bottomright = (600,300))
 
 game_running = True
 # Game loop
-while game_running == True:
+while  True:
 
     # Handle events
     for event in pygame.event.get():
@@ -90,7 +90,7 @@ while game_running == True:
         player_rectangle.bottom = 300
         player_vel_y = 0
 
-    if game_active == True:
+    if game_running == True:
         screen.blit(sky_surface,(0,0)) 
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -101,17 +101,17 @@ while game_running == True:
         snail_rectangle.x -= 1
         if snail_rectangle.right <= 0: 
             snail_rectangle.left = 800
-        
          # Render snail and player rectangles
-        screen.blit(snail_surface,snail_rectangle)
-        screen.blit(player_surface,player_rectangle)
-        screen.blit(mystery_block_surface, mystery_block_rectangle)
+            screen.blit(snail_surface,snail_rectangle)
+            screen.blit(player_surface,player_rectangle)
+            screen.blit(mystery_block_surface, mystery_block_rectangle)
+           
     # Check for collisions
         #if snail_rectangle.colliderect(player_rectangle):
            #pygame.quit
            #exit()
     if snail_rectangle.colliderect(player_rectangle):
-            game_running == False
+            game_active = False
     else: screen.fill('Yellow')
     # Update the game display
     pygame.display.update()
