@@ -5,7 +5,7 @@ from pygame import mixer
 import time
 
 pygame.init()
-font = pygame.font.SysFont("Arial", 60)
+font = pygame.font.SysFont("font/", 60)
 
 game_over_text = font.render("Game Over", True, (255, 0, 0))
 game_over_rect = game_over_text.get_rect(center=(800/2, 400/2))
@@ -35,7 +35,7 @@ ground_surface = pygame.image.load('graphics/ground.png').convert()
 text_surface = test_font.render('My game', False, 'Black')
 
 snail_surface = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
-player_surface = pygame.image.load('graphics/Player/player128x128.png').convert_alpha()
+player_surface = pygame.image.load('graphics/Player/player_stand.png').convert_alpha()
 
 mystery_block_surface = pygame.image.load('graphics/mystery_block.png').convert_alpha()
 mystery_block_rectangle = mystery_block_surface.get_rect(midbottom=(80, 300))
@@ -53,9 +53,11 @@ player_rectangle = player_surface.get_rect(midbottom = (80,300))
 # Set up the snail rectangle
 snail_rectangle = snail_surface.get_rect(bottomright = (600,300))
 
-game_running = True
+
+
+game_active = True
 # Game loop
-while game_running == True:
+while True:
 
     # Handle events
     for event in pygame.event.get():
@@ -88,11 +90,12 @@ while game_running == True:
     if player_rectangle.bottom > 300:
         player_rectangle.bottom = 300
         player_vel_y = 0
-
+    
     # Render game graphics
-    screen.blit(sky_surface,(0,0)) 
-    screen.blit(ground_surface,(0,300))
-    screen.blit(text_surface,(300,50))
+    if game_active == True:
+       screen.blit(sky_surface,(0,0)) 
+       screen.blit(ground_surface,(0,300))
+       screen.blit(text_surface,(300,50))
 
     if player_rectangle.colliderect(mystery_block_rectangle):
        coin_sound.play()
@@ -102,8 +105,7 @@ while game_running == True:
     # Update snail position
     snail_rectangle.x -= 4
     if snail_rectangle.right <= 0: 
-        snail_rectangle.left = 800
-    
+        snail_rectangle.left = 800  
     # Render snail and player rectangles
     screen.blit(snail_surface,snail_rectangle)
     screen.blit(player_surface,player_rectangle)
@@ -111,7 +113,7 @@ while game_running == True:
     # Check for collisions
     if snail_rectangle.colliderect(player_rectangle):
        screen.fill((0, 0, 0))
-       game_running = True
+       game_active = False
        screen.blit(game_over_text, game_over_rect)
 
     # Update the game display
