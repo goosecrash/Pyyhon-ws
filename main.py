@@ -101,7 +101,7 @@ while True:
        coin_sound.play()
        coin_rectangle = coin_surface.get_rect(center=mystery_block_rectangle.center)
        screen.blit(coin_surface, coin_rectangle)
-
+    
     # Update snail position
     snail_rectangle.x -= 4
     if snail_rectangle.right <= 0: 
