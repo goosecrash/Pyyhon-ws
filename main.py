@@ -98,10 +98,10 @@ while True:
        screen.blit(text_surface,(300,50))
        screen.blit(snail_surface,snail_rectangle)
        screen.blit(player_surface,player_rectangle)
-    if player_rectangle.colliderect(mystery_block_rectangle):
-       coin_sound.play()
-       coin_rectangle = coin_surface.get_rect(center=mystery_block_rectangle.center)
-       screen.blit(coin_surface, coin_rectangle)
+   # if player_rectangle.colliderect(mystery_block_rectangle):
+      # coin_sound.play()
+      # coin_rectangle = coin_surface.get_rect(center=mystery_block_rectangle.center)
+      # screen.blit(coin_surface, coin_rectangle)
 
     # Update snail position
     snail_rectangle.x -= 4
@@ -115,7 +115,9 @@ while True:
        screen.fill((0, 0, 0))
        game_active = False
        screen.blit(game_over_text, game_over_rect)
-
+    elif event.type == pygame.MOUSEBUTTONDOWN:
+         game_active = True
+         pygame.display.update()
     # Update the game display
     pygame.display.update()
     
