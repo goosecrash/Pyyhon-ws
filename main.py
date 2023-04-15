@@ -20,8 +20,8 @@ def player_animation():
         player_index = (player_index + 0.1) % len(player_walk)
         player_surface = player_walk[int(player_index)]
 
-pygame.mixer.music.load("audio/background_music.mp3")
-
+music = pygame.mixer.music.load("audio/background_music.mp3")
+game_over_sound = pygame.mixer.Sound("audio/game_over.mp3")
 # Play the music file in an infinite loop
 pygame.mixer.music.play(loops=-1)
 
@@ -42,6 +42,8 @@ SCREEN_HEIGHT = 400
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Runner')
+
+
 
 #load button images
 resume_img = pygame.image.load("images/button_resume.png").convert_alpha()
@@ -91,17 +93,6 @@ def draw_text(text, font, text_col, x, y):
         menu_state = "main"
   else:
     draw_text("Press SPACE to pause", font, TEXT_COL, 160, 250)
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -164,7 +155,7 @@ while True:
                 player_vel_y = JUMP_VELOCITY
         if event.type == pygame.KEYUP:
             pass
-
+        
     # Update player position based on velocity
     player_rectangle.y += player_vel_y
     player_vel_y += GRAVITY
@@ -192,13 +183,19 @@ while True:
     if snail_rectangle.right <= 0: 
         snail_rectangle.left = 800  
     # Render snail and player rectangles
-
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_p:
+            game_active = True
+            game_paused = True
+            menu_state = "main"
    
     # Check for collisions
     if snail_rectangle.colliderect(player_rectangle):
        screen.fill((0, 0, 0))
        game_active = False
+       music.stop()
        screen.blit(game_over_text, game_over_rect)
+       
     elif event.type == pygame.MOUSEBUTTONDOWN:
          game_active = True
          pygame.display.update()
