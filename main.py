@@ -10,10 +10,18 @@ font = pygame.font.SysFont("font/", 60)
 game_over_text = font.render("Game Over", True, (255, 0, 0))
 game_over_rect = game_over_text.get_rect(center=(800/2, 400/2))
 
+def player_animation():
+	global player_surf, player_index
+
+	if player_rectangle.bottom < 300:
+		player_surface = player_jump
+	else:
+		player_index += 0.1
+		if player_index >= len(player_walk):player_index = 0
+		player_surface = player_walk[int(player_index)]
 
 
-
-# Define constants
+# Define constants  for the screen width and height
 GRAVITY = 0.5
 JUMP_VELOCITY = -10
 
@@ -38,8 +46,9 @@ snail_surface = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 player_walk_1 = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
 player_walk_2 = pygame.image.load('graphics/Player/player_walk_2.png').convert_alpha()
 player_jump = pygame.image.load('graphics/Player/jump.png').convert_alpha()
-player_walk_frames = [player_walk_1, player_walk_2]
-
+player_walk = [player_walk_1, player_walk_2]
+player_index = 0
+player_surface = player_walk[player_index]
 mystery_block_surface = pygame.image.load('graphics/mystery_block.png').convert_alpha()
 mystery_block_rectangle = mystery_block_surface.get_rect(midbottom=(80, 300))
 screen.blit(mystery_block_surface, mystery_block_rectangle)
@@ -51,7 +60,7 @@ coin_surface = pygame.image.load('graphics/coin.png').convert_alpha()
 
 
 # Set up the player rectangle
-player_rectangle = player_walk_frames.get_rect(midbottom = (80,300))
+player_rectangle = player_surface.get_rect(midbottom = (80,300))
 
 # Set up the snail rectangle
 snail_rectangle = snail_surface.get_rect(bottomright = (600,300))
@@ -95,11 +104,12 @@ while True:
     
     # Render game graphics
     if game_active == True:
+       player_animation()
        screen.blit(sky_surface,(0,0)) 
        screen.blit(ground_surface,(0,300))
        screen.blit(text_surface,(300,50))
        screen.blit(snail_surface,snail_rectangle)
-       screen.blit(player_walk_frames,player_rectangle)
+       screen.blit(player_surface,player_rectangle)
    # if player_rectangle.colliderect(mystery_block_rectangle):
       # coin_sound.play()
       # coin_rectangle = coin_surface.get_rect(center=mystery_block_rectangle.center)
