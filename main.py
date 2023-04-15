@@ -11,14 +11,14 @@ game_over_text = font.render("Game Over", True, (255, 0, 0))
 game_over_rect = game_over_text.get_rect(center=(800/2, 400/2))
 
 def player_animation():
-	global player_surf, player_index
+    global player_surface, player_index
 
-	if player_rectangle.bottom < 300:
-		player_surface = player_jump
-	else:
-		player_index += 0.1
-		if player_index >= len(player_walk):player_index = 0
-		player_surface = player_walk[int(player_index)]
+    if player_rectangle.bottom < 300:
+        player_surface = player_jump
+    else:
+        player_index = (player_index + 0.1) % len(player_walk)
+        player_surface = player_walk[int(player_index)]
+
 
 
 # Define constants  for the screen width and height
@@ -100,11 +100,11 @@ while True:
     # Don't let the player fall through the ground
     if player_rectangle.bottom > 300:
         player_rectangle.bottom = 300
+        player_animation()
         player_vel_y = 0
     
     # Render game graphics
     if game_active == True:
-       player_animation()
        screen.blit(sky_surface,(0,0)) 
        screen.blit(ground_surface,(0,300))
        screen.blit(text_surface,(300,50))
