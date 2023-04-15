@@ -3,28 +3,7 @@ from sys import exit
 from pygame.locals import *
 from pygame import mixer
 import time
-pygame.mixer.init()
 
-
-class Player(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
-        self.rect = self.image.get_rect(center=(80, 300))
-        self.gravity = 0.5
-        self.jump_velocity = -10
-        
-# Load the background music file
-pygame.mixer.music.load("audio/background_music.mp3")
-
-# Play the music file in an infinite loop
-pygame.mixer.music.play(loops=-1)    
-
-
-
-
-
-player = Player()
 pygame.init()
 font = pygame.font.SysFont("font/", 60)
 
@@ -131,7 +110,6 @@ while True:
        screen.blit(text_surface,(300,50))
        screen.blit(snail_surface,snail_rectangle)
        screen.blit(player_surface,player_rectangle)
-       pygame.display.update()
    # if player_rectangle.colliderect(mystery_block_rectangle):
       # coin_sound.play()
       # coin_rectangle = coin_surface.get_rect(center=mystery_block_rectangle.center)
@@ -153,7 +131,7 @@ while True:
          game_active = True
          pygame.display.update()
     # Update the game display
-        
+    pygame.display.update()
     
     # Set the game clock to 60 FPS
     clock.tick(60)
