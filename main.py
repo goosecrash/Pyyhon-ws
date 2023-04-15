@@ -19,7 +19,10 @@ def player_animation():
         player_index = (player_index + 0.1) % len(player_walk)
         player_surface = player_walk[int(player_index)]
 
+pygame.mixer.music.load("audio/background_music.mp3")
 
+# Play the music file in an infinite loop
+pygame.mixer.music.play(loops=-1)
 
 # Define constants  for the screen width and height
 GRAVITY = 0.5
@@ -29,8 +32,14 @@ JUMP_VELOCITY = -10
 player_vel_y = 0
 jump_sound = pygame.mixer.Sound('sounds/jump.mp3')
 
+game_paused = False
+menu_state = "main"
+font = pygame.font.SysFont("arialblack", 40)
 # Set up the game window
-screen = pygame.display.set_mode((800, 400))
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 400
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Runner')
 
 # Set up the game clock and font
