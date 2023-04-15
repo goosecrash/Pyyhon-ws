@@ -4,6 +4,22 @@ from pygame.locals import *
 from pygame import mixer
 import time
 
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
+        self.rect = self.image.get_rect(center=(80, 300))
+        self.gravity = 0.5
+        self.jump_velocity = -10
+        
+    
+
+
+
+
+
+player = Player()
 pygame.init()
 font = pygame.font.SysFont("font/", 60)
 
