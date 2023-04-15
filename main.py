@@ -35,7 +35,10 @@ ground_surface = pygame.image.load('graphics/ground.png').convert()
 text_surface = test_font.render('My game', False, 'Black')
 
 snail_surface = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
-player_surface = pygame.image.load('graphics/Player/player_stand.png').convert_alpha()
+player_walk_1 = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
+player_walk_2 = pygame.image.load('graphics/Player/player_walk_2.png').convert_alpha()
+player_jump = pygame.image.load('graphics/Player/jump.png').convert_alpha()
+player_walk_frames = [player_walk_1, player_walk_2]
 
 mystery_block_surface = pygame.image.load('graphics/mystery_block.png').convert_alpha()
 mystery_block_rectangle = mystery_block_surface.get_rect(midbottom=(80, 300))
@@ -48,7 +51,7 @@ coin_surface = pygame.image.load('graphics/coin.png').convert_alpha()
 
 
 # Set up the player rectangle
-player_rectangle = player_surface.get_rect(midbottom = (80,300))
+player_rectangle = player_walk_frames.get_rect(midbottom = (80,300))
 
 # Set up the snail rectangle
 snail_rectangle = snail_surface.get_rect(bottomright = (600,300))
@@ -62,10 +65,9 @@ while True:
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            time.sleep(100000)
-            pygame.quit()
-            time.sleep(100000)
+            pygame.quit() 
             exit()
+            print('quit')
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 print('jump')
@@ -97,7 +99,7 @@ while True:
        screen.blit(ground_surface,(0,300))
        screen.blit(text_surface,(300,50))
        screen.blit(snail_surface,snail_rectangle)
-       screen.blit(player_surface,player_rectangle)
+       screen.blit(player_walk_frames,player_rectangle)
    # if player_rectangle.colliderect(mystery_block_rectangle):
       # coin_sound.play()
       # coin_rectangle = coin_surface.get_rect(center=mystery_block_rectangle.center)
